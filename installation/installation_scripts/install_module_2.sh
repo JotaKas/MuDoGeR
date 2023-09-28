@@ -38,10 +38,10 @@ echo cp -r $MUDOGER_CLONED_TOOLS_PATH/metaWRAP/bin/* $MUDOGER_DEPENDENCIES_ENVS_
 cp -r $MUDOGER_CLONED_TOOLS_PATH/metaWRAP/bin/* $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env/bin
 
 echo '----> mamba install metawrap'
-mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y --only-deps -c ursky metawrap-mg
-conda install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda samtools=1.9 --force-reinstall
-conda install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda bwa quast megahit trim-galore fastqc metabat2 spades
-conda update --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y spades
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y --only-deps -c ursky metawrap-mg=1.3.2
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda samtools=1.9 --force-reinstall
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda bwa quast megahit trim-galore fastqc metabat2 spades
+mamba update --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y spades
 echo '----> done'
 fi
 
@@ -54,6 +54,7 @@ else
 conda create -y --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/gtdbtk_env 
 conda activate $MUDOGER_DEPENDENCIES_ENVS_PATH/gtdbtk_env 
 mamba install -y  --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/gtdbtk_env -c bioconda gtdbtk
+pip3 install mxnet-mkl==1.6.0 numpy==1.23.1
 conda deactivate
 fi
 

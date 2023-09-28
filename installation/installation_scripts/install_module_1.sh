@@ -40,10 +40,13 @@ echo cp -r $MUDOGER_CLONED_TOOLS_PATH/metaWRAP/bin/* $MUDOGER_DEPENDENCIES_ENVS_
 cp -r $MUDOGER_CLONED_TOOLS_PATH/metaWRAP/bin/* $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env/bin
 
 echo '----> mamba install metawrap'
-mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y --only-deps -c ursky metawrap-mg
-conda install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda samtools=1.9 --force-reinstall
-conda install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda bwa quast megahit trim-galore fastqc metabat2 spades
-conda update --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y spades
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y --only-deps -c ursky metawrap-mg=1.3.2
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda samtools=1.9 --force-reinstall
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y -c bioconda bwa quast megahit trim-galore fastqc metabat2 spades
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y concoct=1.0
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y checkm-genome
+mamba install --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y maxbin2
+mamba update --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/metawrap_env -y spades
 echo '----> done'
 fi
 
@@ -52,9 +55,9 @@ verify_if_conda_env_exist khmer_env
 if [ $PRESENT == 'yes' ]
 then :;
 else
-echo '----> creating khmer conda'
-echo conda create --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/khmer_env -y python=3.6 conda-forge::r-base conda-forge::readline=6.2
-conda create --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/khmer_env -y python=3.6 conda-forge::r-base conda-forge::readline=6.2
+echo '----> creating khmer env'
+echo conda create --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/khmer_env -y python=3.8 conda-forge::r-base conda-forge::readline=6.2
+conda create --prefix $MUDOGER_DEPENDENCIES_ENVS_PATH/khmer_env -y python=3.8 conda-forge::r-base conda-forge::readline=6.2
 echo '----> done'
 echo '----> install khmer'
 conda activate $MUDOGER_DEPENDENCIES_ENVS_PATH/khmer_env && pip install khmer==2.1.1 && conda deactivate    
