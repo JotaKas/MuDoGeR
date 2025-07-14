@@ -93,10 +93,10 @@ if [ "$active_module" = "all" ]; then
     wget http://fileshare.csb.univie.ac.at/vog/vog94/vog.hmm.tar.gz -P $VIBRANT_DB_DIR
     else :; fi
     if [ ! -f $VIBRANT_DB_DIR/Pfam-A.hmm.gz ]; then
-    wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/Pfam-A.hmm.gz -P $VIBRANT_DB_DIR
+    wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/Pfam-A.hmm.gz -P $VIBRANT_DB_DIR
     else :; fi
     if [ ! -f $VIBRANT_DB_DIR/profiles.tar.gz ]; then
-    wget ftp://ftp.genome.jp/pub/db/kofam/archives/2019-08-10/profiles.tar.gz -P $VIBRANT_DB_DIR
+    wget https://www.genome.jp/ftp/db/kofam/archives/2023-08-01/profiles.tar.gz -P $VIBRANT_DB_DIR
     else :; fi
     #echo 'downloaded'
     tar -xzf $VIBRANT_DB_DIR/vog.hmm.tar.gz -C $VIBRANT_DB_DIR
@@ -115,7 +115,7 @@ if [ "$active_module" = "all" ]; then
     rm -f  $VIBRANT_DB_DIR/VOG2*.hmm
     rm -rf $VIBRANT_DB_DIR/profiles
     #echo 'clean'
-    prof_names="$(echo $PATH | sed "s/:/\n/g" | grep vibrant | sed "s/bin/share\/vibrant-1.2.0\/databases\/profile_names/g")"
+    prof_names="${CONDA_PREFIX}/share/vibrant-1.2.1/db/databases/profile_names"
     cp -r $prof_names $VIBRANT_DB_DIR
     hmmfetch -o $VIBRANT_DB_DIR/VOGDB94_phage.HMM -f $VIBRANT_DB_DIR/vog_temp.HMM $VIBRANT_DB_DIR/profile_names/VIBRANT_vog_profiles.txt
     hmmfetch -o $VIBRANT_DB_DIR/KEGG_profiles_prokaryotes.HMM -f $VIBRANT_DB_DIR/kegg_temp.HMM $VIBRANT_DB_DIR/profile_names/VIBRANT_kegg_profiles.txt
@@ -140,9 +140,10 @@ if [ "$active_module" = "all" ]; then
     then
     mkdir -p $WISH_DB_DIR
     wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.1.1.genomic.fna.gz" -P $WISH_DB_DIR
-    wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.2.1.genomic.fna.gz" -P $WISH_DB_DIR
-    wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.3.1.genomic.fna.gz" -P $WISH_DB_DIR
-    wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.4.1.genomic.fna.gz" -P $WISH_DB_DIR
+    #old links
+    #wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.2.1.genomic.fna.gz" -P $WISH_DB_DIR
+    #wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.3.1.genomic.fna.gz" -P $WISH_DB_DIR
+    #wget "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.4.1.genomic.fna.gz" -P $WISH_DB_DIR
 
     gunzip $WISH_DB_DIR/*
     cat $WISH_DB_DIR/* > $WISH_DB_DIR/viral_refseq.fna
@@ -158,7 +159,7 @@ if [ "$active_module" = "all" ]; then
     done
 
     mv $WISH_DB_DIR/viruses* $WISH_DB_DIR/phages
-    rm -rf $WISH_DB_DIR/viral.1.1.genomic.fna  $WISH_DB_DIR/viral.2.1.genomic.fna  $WISH_DB_DIR/viral.3.1.genomic.fna  $WISH_DB_DIR/viral.4.1.genomic.fna $WISH_DB_DIR/viral_refseq.fna
+    rm -rf $WISH_DB_DIR/viral.1.1.genomic.fna  #$WISH_DB_DIR/viral.2.1.genomic.fna  $WISH_DB_DIR/viral.3.1.genomic.fna  $WISH_DB_DIR/viral.4.1.genomic.fna $WISH_DB_DIR/viral_refseq.fna
     touch $database_location/.wish_db_finished
     else
     echo "-> your Wish database is ready"
